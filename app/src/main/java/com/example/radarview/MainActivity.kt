@@ -14,8 +14,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.radar_view.common.CustomTriangleProperties
 import com.example.radar_view.views.RadarView
 import com.example.radarview.ui.theme.RadarViewTheme
 
@@ -42,7 +44,24 @@ class MainActivity : ComponentActivity() {
                         RadarView(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(400.dp)
+                                .height(300.dp)
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        RadarView(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(300.dp),
+                            duration = 3000,
+                            circleCount = 3,
+                            colors = CustomTriangleProperties.triangleColors(
+                                primaryColor = Color.Blue,
+                                secondaryColor = Color.Transparent
+                            ),
+                            properties = CustomTriangleProperties.triangleProperties(
+                                sweepAngle = 25f
+                            )
                         )
                     }
                 }

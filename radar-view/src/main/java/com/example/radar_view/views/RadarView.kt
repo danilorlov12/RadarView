@@ -1,6 +1,7 @@
 package com.example.radar_view.views
 
 import androidx.annotation.FloatRange
+import androidx.annotation.IntRange
 import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -27,7 +28,7 @@ fun RadarView(
     duration: Int = 4000,
     easing: Easing = LinearEasing,
     repeatMode: RepeatMode = RepeatMode.Restart,
-    circleCount: Int = 4,
+    @IntRange(from = 1) circleCount: Int = 4,
     colors: TriangleColors = CustomTriangleProperties.triangleColors(),
     properties: TriangleProperties = CustomTriangleProperties.triangleProperties(),
 ) {
@@ -41,12 +42,10 @@ fun RadarView(
         ),
         label = "Rotation"
     )
-    Canvas(
-        modifier = modifier
-    ) {
+
+    Canvas(modifier = modifier) {
 
         val targetSize = if (size.width > size.height) size.height else size.width
-
         val center = Offset(size.width / 2, size.height / 2)
         val radius = targetSize / 2
 

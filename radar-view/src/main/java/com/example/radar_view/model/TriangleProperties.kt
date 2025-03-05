@@ -12,6 +12,5 @@ class TriangleColors(
 @Immutable
 class TriangleProperties(
     val sweepAngle: Float,
-    val alpha: Float,
-    val angleOffset: Double
+    val alpha: Float
 )

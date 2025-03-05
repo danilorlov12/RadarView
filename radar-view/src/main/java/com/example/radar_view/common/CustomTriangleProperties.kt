@@ -19,11 +19,9 @@ object CustomTriangleProperties {
     @Composable
     fun triangleProperties(
         alpha: Float = 0.35f,
-        sweepAngle: Float = 10f,
-        angleOffset: Double = 5.0
+        sweepAngle: Float = 10f
     ) : TriangleProperties = TriangleProperties(
         alpha = alpha,
-        sweepAngle = sweepAngle,
-        angleOffset = angleOffset
+        sweepAngle = sweepAngle
     )
 }

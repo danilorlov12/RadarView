@@ -10,8 +10,6 @@ import com.example.radar_view.model.TriangleProperties
 import kotlin.math.cos
 import kotlin.math.sin
 
-private const val TRIANGLE_ANGLE_OFFSET = 5.0
-
 internal fun DrawScope.drawMovingTriangle(
     radius: Float,
     center: Offset,
@@ -22,20 +20,16 @@ internal fun DrawScope.drawMovingTriangle(
 
     val radian = Math.toRadians(angle.toDouble())
 
-    val rearTrianglePoint = Offset(
-        x = center.x + radius * cos(radian + Math.toRadians(TRIANGLE_ANGLE_OFFSET + properties.angleOffset)).toFloat(),
-        y = center.y + radius * sin(radian + Math.toRadians(TRIANGLE_ANGLE_OFFSET + properties.angleOffset)).toFloat()
-    )
-
-    val frontTrianglePoint = Offset(
-        x = center.x + radius * cos(radian - Math.toRadians(TRIANGLE_ANGLE_OFFSET)).toFloat(),
-        y = center.y + radius * sin(radian - Math.toRadians(TRIANGLE_ANGLE_OFFSET)).toFloat()
-    )
-
     val gradientBrush = Brush.linearGradient(
         colors = listOf(colors.primaryColor.copy(alpha = properties.alpha), colors.secondaryColor),
-        start = rearTrianglePoint,
-        end = frontTrianglePoint
+        start = Offset(
+            x = (center.x + radius / 2 * cos(radian + Math.toRadians(properties.sweepAngle.toDouble()))).toFloat(),
+            y = (center.y + radius / 2 * sin(radian + Math.toRadians(properties.sweepAngle.toDouble()))).toFloat()
+        ),
+        end = Offset(
+            x = (center.x + radius / 2 * cos(radian)).toFloat(),
+            y = (center.y + radius / 2 * sin(radian)).toFloat()
+        )
     )
 
     drawArc(

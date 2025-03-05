@@ -55,6 +55,7 @@ class MainActivity : ComponentActivity() {
                                 .height(300.dp),
                             duration = 3000,
                             circleCount = 3,
+                            clockwise = false,
                             colors = CustomTriangleProperties.triangleColors(
                                 primaryColor = Color.Blue,
                                 secondaryColor = Color.Transparent

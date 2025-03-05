@@ -29,13 +29,14 @@ fun RadarView(
     easing: Easing = LinearEasing,
     repeatMode: RepeatMode = RepeatMode.Restart,
     @IntRange(from = 1) circleCount: Int = 4,
+    clockwise: Boolean = true,
     colors: TriangleColors = CustomTriangleProperties.triangleColors(),
     properties: TriangleProperties = CustomTriangleProperties.triangleProperties(),
 ) {
 
     val angle by rememberInfiniteTransition(label = "Radar Animation").animateFloat(
         initialValue = startPosition,
-        targetValue = startPosition + 360f,
+        targetValue = if (clockwise) startPosition + 360f else startPosition - 360f,
         animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = duration, easing = easing),
             repeatMode = repeatMode
@@ -61,7 +62,8 @@ fun RadarView(
             center = center,
             angle = angle,
             colors = colors,
-            properties = properties
+            properties = properties,
+            clockwise = clockwise
         )
     }
 }

@@ -15,21 +15,27 @@ internal fun DrawScope.drawMovingTriangle(
     center: Offset,
     angle: Float,
     colors: TriangleColors,
-    properties: TriangleProperties
+    properties: TriangleProperties,
+    clockwise: Boolean
 ) {
 
     val radian = Math.toRadians(angle.toDouble())
+    val sweepRadian = Math.toRadians(properties.sweepAngle.toDouble())
+
+    val leadingOffset = Offset(
+        x = (center.x + radius / 2 * cos(radian + sweepRadian)).toFloat(),
+        y = (center.y + radius / 2 * sin(radian + sweepRadian)).toFloat()
+    )
+
+    val trailingOffset = Offset(
+        x = (center.x + radius / 2 * cos(radian)).toFloat(),
+        y = (center.y + radius / 2 * sin(radian)).toFloat()
+    )
 
     val gradientBrush = Brush.linearGradient(
         colors = listOf(colors.primaryColor.copy(alpha = properties.alpha), colors.secondaryColor),
-        start = Offset(
-            x = (center.x + radius / 2 * cos(radian + Math.toRadians(properties.sweepAngle.toDouble()))).toFloat(),
-            y = (center.y + radius / 2 * sin(radian + Math.toRadians(properties.sweepAngle.toDouble()))).toFloat()
-        ),
-        end = Offset(
-            x = (center.x + radius / 2 * cos(radian)).toFloat(),
-            y = (center.y + radius / 2 * sin(radian)).toFloat()
-        )
+        start = if (clockwise) leadingOffset else trailingOffset,
+        end = if (clockwise) trailingOffset else leadingOffset
     )
 
     drawArc(
